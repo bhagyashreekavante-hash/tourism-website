@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title> - Premium Travel & Tourism</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            
+        }
+
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #ec4899;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --gray: #64748b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #4c1d95 50%, #0f172a 100%);
+            color: white;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        nav {
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1.5rem 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1600') center/cover;
+            filter: brightness(0.4);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: slideDown 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #e2e8f0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(139, 92, 246, 0.6);
+        }
+
+        .section {
+            padding: 5rem 2rem;
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.4);
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 1.2rem 1.5rem 1.2rem 3.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 50px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+        }
+
+        .search-box input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .destination-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.5);
+        }
+
+        .destination-img-container {
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+        }
+
+        .destination-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .destination-card:hover .destination-img {
+            transform: scale(1.1);
+        }
+
+        .favorite-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .favorite-btn:hover {
+            background: rgba(0, 0, 0, 0.7);
+            transform: scale(1.1);
+        }
+
+        .destination-content {
+            padding: 1.5rem;
+        }
+
+        .destination-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.8rem;
+        }
+
+        .destination-name {
+            font-size: 1.6rem;
+            font-weight: bold;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: #fbbf24;
+            font-weight: bold;
+        }
+
+        .destination-desc {
+            color: #cbd5e1;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .destination-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn-small {
+            padding: 0.6rem 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .booking-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .booking-form {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 2.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #cbd5e1;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .form-group select option {
+            background: var(--darker);
+            color: white;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .hotels-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .hotel-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .hotel-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(10px);
+        }
+
+        .hotel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .hotel-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .hotel-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .map-btn {
+            width: 100%;
+            background: #2563eb;
+            margin-top: 0.8rem;
+        }
+
+        .map-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .bookings-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .booking-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            transition: all 0.3s;
+        }
+
+        .booking-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(10px);
+        }
+
+        .booking-details h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .booking-details p {
+            color: #cbd5e1;
+            margin-bottom: 0.5rem;
+        }
+
+        .booking-status {
+            background: #10b981;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .booking-date {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        .empty-icon {
+            font-size: 6rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state p {
+            font-size: 1.5rem;
+            color: #cbd5e1;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 3rem 2rem;
+           
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #94a3b8;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(139, 92, 246, 0.3);
+            color: #94a3b8;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.95);
+                padding: 2rem;
+                gap: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .booking-container {
+                grid-template-columns: 1fr;
+            }
+
+            .destinations-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <span><img src="travel.jpg" style="border-radius: 50%; height: 70px; width: 70px;"></span>
+                <span>TravelEase</span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" class="nav-link active" data-section="home">Home</a></li>
+                <li><a href="#" class="nav-link" data-section="destinations">Destinations</a></li>
+                <li><a href="#" class="nav-link" data-section="booking">Booking</a></li>
+                <li><a href="#" class="nav-link" data-section="mybookings">My Bookings</a></li>
+            </ul>
+            <button class="mobile-toggle" id="mobileToggle">☰</button>
+        </div>
+    </nav>
+
+    <section class="section active" id="home" style="background-color: #020617;">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Explore the World</h1>
+                <p>Discover breathtaking destinations and create unforgettable memories with our curated travel experiences</p>
+                <a href="#" class="btn" onclick="showSection('destinations'); return false;">Start Your Journey</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <h2 class="section-title">Why Choose TravelEase?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><img src="des.jpg"style="width: 100%;" height="100%"></div>
+                    <h3>Curated Destinations</h3>
+                    <p>Handpicked locations from around the globe, carefully selected for unforgettable experiences</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><img src="ho.jpg" style="width: 100%;" height="100%"></div>
+                    <h3>Luxury Hotels</h3>
+                    <p>Premium accommodations with world-class amenities and exceptional service</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><img src="nav.jpg" style="width: 100%;" height="100%"></div>
+                    <h3>Smart Navigation</h3>
+                    <p>Integrated Google Maps routing to guide you seamlessly to your destination</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="destinations"  style="background-color: #020617;">
+        <div class="container">
+            <h2 class="section-title">Popular Destinations</h2>
+            
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="Search destinations..." onkeyup="filterDestinations()">
+            </div>
+
+            <div class="destinations-grid" id="destinationsGrid"></div>
+        </div>
+    </section>
+
+    <section class="section" id="booking" style="background-color: #020617">
+        <div class="container">
+            <h2 class="section-title">Book Your Dream Vacation</h2>
+            
+            <div class="booking-container">
+                <div class="booking-form">
+                    <h3 style="margin-bottom: 1.5rem; font-size: 1.8rem;">Booking Details</h3>
+                    
+                    <div class="form-group">
+                        <label>Destination</label>
+                        <select id="bookingDestination" onchange="loadHotels()">
+                            <option value="">Select destination</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="hotelSelectGroup" style="display: none;">
+                        <label>Select Hotel</label>
+                        <select id="bookingHotel">
+                            <option value="">Select hotel</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Check-in</label>
+                            <input type="date" id="checkIn">
+                        </div>
+                        <div class="form-group">
+                            <label>Check-out</label>
+                            <input type="date" id="checkOut">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Number of Guests</label>
+                        <input type="number" id="guests" value="1" min="1">
+                    </div>
+
+                    <button class="btn" onclick="confirmBooking()" style="width: 100%; margin-top: 1rem;">
+                        Confirm Booking
+                    </button>
+                </div>
+
+                <div>
+                    <h3 style="margin-bottom: 1.5rem; font-size: 1.8rem;">Available Hotels</h3>
+                    <div class="hotels-list" id="hotelsList">
+                        <p style="color: #94a3b8; text-align: center; padding: 2rem;">Select a destination to view available hotels</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="mybookings" style="background-color: #020617">
+        <div class="container">
+            <h2 class="section-title">My Bookings</h2>
+            <div class="bookings-list" id="bookingsList"></div>
+        </div>
+    </section>
+
+    <footer >
+        <div class="footer-container" >
+            <div class="footer-section">
+                <h4>🌍 TravelEase</h4>
+                <p>Your gateway to unforgettable adventures worldwide. Explore, dream, discover.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="#" onclick="showSection('destinations'); return false;">Destinations</a>
+                <a href="#" onclick="showSection('booking'); return false;">Hotels</a>
+                <a href="#" onclick="showSection('home'); return false;">About Us</a>
+                <a href="#" onclick="showSection('mybookings'); return false;">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>📞 +1 234 567 8900</p>
+                <p>✉ info@TravelEase.com</p>
+                <p>📍 123 Travel Street</p>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <p>Stay connected for travel inspiration and exclusive deals</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 TravelEase. All rights reserved. Built with ❤ for travelers.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Data (complete)
+        var destinations = [
+            {
+                id: 1,
+                name: 'Bali, Indonesia',
+                image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800',
+                price: 899,
+                rating: 4.8,
+                description: 'Tropical paradise with stunning beaches and rich culture',
+                lat: -8.3405,
+                lng: 115.0920,
+                hotels: [
+                    { name: 'The Mulia Resort', price: 250, rating: 4.9, lat: -8.8044, lng: 115.1674 },
+                    { name: 'Four Seasons Bali', price: 320, rating: 4.8, lat: -8.8472, lng: 115.1730 },
+                    { name: 'W Bali Seminyak', price: 280, rating: 4.7, lat: -8.6919, lng: 115.1655 }
+                ]
+            },
+            {
+                id: 2,
+                name: 'Paris, France',
+                image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800',
+                price: 1299,
+                rating: 4.9,
+                description: 'City of lights and romance with iconic architecture',
+                lat: 48.8566,
+                lng: 2.3522,
+                hotels: [
+                    { name: 'The Ritz Paris', price: 850, rating: 5.0, lat: 48.8684, lng: 2.3287 },
+                    { name: 'Le Bristol Paris', price: 720, rating: 4.9, lat: 48.8702, lng: 2.3161 },
+                    { name: 'Hotel Plaza Athenee', price: 790, rating: 4.9, lat: 48.8661, lng: 2.3053 }
+                ]
+            },
+            {
+                id: 3,
+                name: 'Santorini, Greece',
+                image: 'https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=800',
+                price: 1099,
+                rating: 4.9,
+                description: 'Breathtaking sunsets and white-washed architecture',
+                lat: 36.3932,
+                lng: 25.4615,
+                hotels: [
+                    { name: 'Katikies Hotel', price: 450, rating: 4.9, lat: 36.4618, lng: 25.3753 },
+                    { name: 'Canaves Oia Suites', price: 520, rating: 5.0, lat: 36.4618, lng: 25.3764 },
+                    { name: 'Grace Hotel Santorini', price: 480, rating: 4.8, lat: 36.4344, lng: 25.4301 }
+                ]
+            },
+            {
+                id: 4,
+                name: 'Tokyo, Japan',
+                image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800',
+                price: 1499,
+                rating: 4.8,
+                description: 'Blend of ancient tradition and futuristic innovation',
+                lat: 35.6762,
+                lng: 139.6503,
+                hotels: [
+                    { name: 'Aman Tokyo', price: 650, rating: 4.9, lat: 35.6764, lng: 139.7636 },
+                    { name: 'The Peninsula Tokyo', price: 580, rating: 4.8, lat: 35.6735, lng: 139.7630 },
+                    { name: 'Park Hyatt Tokyo', price: 520, rating: 4.8, lat: 35.6857, lng: 139.6938 }
+                ]
+            },
+            {
+                id: 5,
+                name: 'Maldives',
+                image: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800',
+                price: 2199,
+                rating: 5.0,
+                description: 'Luxury overwater villas in crystal clear waters',
+                lat: 3.2028,
+                lng: 73.2207,
+                hotels: [
+                    { name: 'Soneva Fushi', price: 980, rating: 5.0, lat: 5.1152, lng: 73.0882 },
+                    { name: 'Conrad Maldives', price: 850, rating: 4.9, lat: 3.0757, lng: 72.8322 },
+                    { name: 'One&Only Reethi Rah', price: 1200, rating: 5.0, lat: 4.3867, lng: 73.4771 }
+                ]
+            },
+            {
+                id: 6,
+                name: 'Dubai, UAE',
+                image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800',
+                price: 1699,
+                rating: 4.7,
+                description: 'Luxury shopping and ultramodern architecture',
+                lat: 25.2048,
+                lng: 55.2708,
+                hotels: [
+                    { name: 'Burj Al Arab', price: 1100, rating: 5.0, lat: 25.1412, lng: 55.1853 },
+                    { name: 'Atlantis The Palm', price: 650, rating: 4.8, lat: 25.1305, lng: 55.1171 },
+                    { name: 'Armani Hotel Dubai', price: 720, rating: 4.9, lat: 25.1972, lng: 55.2744 }
+                ]
+            }
+        ];
+
+        // LocalStorage keys
+        var BOOKINGS_KEY = 'travelEase_bookings';
+        var FAVORITES_KEY = 'travelEase_favorites';
+
+        // Helpers
+        function formatPrice(val) {
+            return '$' + Number(val).toLocaleString();
+        }
+
+        function getBookings() {
+            try {
+                var data = localStorage.getItem(BOOKINGS_KEY);
+                return data ? JSON.parse(data) : [];
+            } catch (e) {
+                console.error('Error reading bookings', e);
+                return [];
+            }
+        }
+
+        function saveBookings(bookings) {
+            localStorage.setItem(BOOKINGS_KEY, JSON.stringify(bookings));
+        }
+
+        function getFavorites() {
+            try {
+                var data = localStorage.getItem(FAVORITES_KEY);
+                return data ? JSON.parse(data) : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveFavorites(ids) {
+            localStorage.setItem(FAVORITES_KEY, JSON.stringify(ids));
+        }
+
+        // Render destinations grid
+        function renderDestinations(list) {
+            var grid = document.getElementById('destinationsGrid');
+            grid.innerHTML = '';
+            if (!list || list.length === 0) {
+                grid.innerHTML = '<div class="empty-state"><div class="empty-icon">😕</div><p>No destinations found.</p></div>';
+                return;
+            }
+            var favorites = getFavorites();
+            list.forEach(function(dest) {
+                var card = document.createElement('div');
+                card.className = 'destination-card';
+                card.innerHTML = `
+                    <div class="destination-img-container">
+                        <img class="destination-img" src="${dest.image}" alt="${dest.name}">
+                        <button class="favorite-btn" title="Toggle Favorite" data-id="${dest.id}">${favorites.includes(dest.id) ? '💖' : '🤍'}</button>
+                    </div>
+                    <div class="destination-content">
+                        <div class="destination-header">
+                            <div>
+                                <div class="destination-name">${dest.name}</div>
+                                <div class="rating">★ ${dest.rating}</div>
+                            </div>
+                            <div class="price">${formatPrice(dest.price)}</div>
+                        </div>
+                        <p class="destination-desc">${dest.description}</p>
+                        <div class="destination-footer">
+                            <div>
+                                <button class="btn-small btn" onclick="showDestinationDetails(${dest.id}); return false;">View</button>
+                            </div>
+                            <div>
+                                <button class="btn-small btn" onclick="openMap(${dest.lat}, ${dest.lng}); return false;">Map</button>
+                                <button class="btn-small btn" onclick="startBookingFrom(${dest.id}); return false;">Book</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                // favorite button handler
+                card.querySelector('.favorite-btn').addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    var id = Number(this.getAttribute('data-id'));
+                    toggleFavorite(id, this);
+                });
+                grid.appendChild(card);
+            });
+        }
+
+        function toggleFavorite(id, btnElement) {
+            var favs = getFavorites();
+            var idx = favs.indexOf(id);
+            if (idx === -1) {
+                favs.push(id);
+            } else {
+                favs.splice(idx, 1);
+            }
+            saveFavorites(favs);
+            if (btnElement) {
+                btnElement.textContent = favs.includes(id) ? '💖' : '🤍';
+            } else {
+                renderDestinations(destinations);
+            }
+        }
+
+        function filterDestinations() {
+            var q = document.getElementById('searchInput').value.trim().toLowerCase();
+            if (!q) {
+                renderDestinations(destinations);
+                return;
+            }
+            var filtered = destinations.filter(function(d) {
+                return d.name.toLowerCase().includes(q) || d.description.toLowerCase().includes(q);
+            });
+            renderDestinations(filtered);
+        }
+
+        function showDestinationDetails(id) {
+            var d = destinations.find(function(x) { return x.id === id; });
+            if (!d) return;
+            // Simple modal-like behavior using booking section: prefill booking form and switch to booking
+            showSection('booking');
+            document.getElementById('bookingDestination').value = d.id;
+            loadHotels(); // will select hotels for that destination
+            // Scroll to booking form
+            setTimeout(function(){
+                document.getElementById('checkIn').focus();
+            }, 300);
+        }
+
+        function openMap(lat, lng) {
+            var url =` https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+            window.open(url, '_blank');
+        }
+
+        // Booking UI
+        function loadBookingDestinations() {
+            var sel = document.getElementById('bookingDestination');
+            sel.innerHTML = '<option value="">Select destination</option>';
+            destinations.forEach(function(d) {
+                var opt = document.createElement('option');
+                opt.value = d.id;
+                opt.textContent = d.name;
+                sel.appendChild(opt);
+            });
+        }
+
+        function loadHotels() {
+            var destId = Number(document.getElementById('bookingDestination').value);
+            var group = document.getElementById('hotelSelectGroup');
+            var hotelSel = document.getElementById('bookingHotel');
+            var hotelsList = document.getElementById('hotelsList');
+            hotelSel.innerHTML = '<option value="">Select hotel</option>';
+            hotelsList.innerHTML = '';
+
+            if (!destId) {
+                group.style.display = 'none';
+                hotelsList.innerHTML = '<p style="color: #94a3b8; text-align: center; padding: 2rem;">Select a destination to view available hotels</p>';
+                return;
+            }
+
+            var dest = destinations.find(function(x) { return x.id === destId; });
+            if (!dest) return;
+
+            dest.hotels.forEach(function(h, idx) {
+                var opt = document.createElement('option');
+                opt.value = idx; // index within hotel's array
+                opt.textContent = `${h.name} — ${formatPrice(h.price)} — ★ ${h.rating}`;
+                hotelSel.appendChild(opt);
+            });
+
+            group.style.display = 'block';
+
+            // Show hotels list on right side
+            hotelsList.innerHTML = '';
+            dest.hotels.forEach(function(h) {
+                var card = document.createElement('div');
+                card.className = 'hotel-card';
+                card.innerHTML = `
+                    <div class="hotel-header">
+                        <div>
+                            <div class="hotel-name">${h.name}</div>
+                            <div class="rating">★ ${h.rating}</div>
+                        </div>
+                        <div class="hotel-price">${formatPrice(h.price)}</div>
+                    </div>
+                    <p style="color:#cbd5e1">Located near the main attractions. Enjoy premium services and great hospitality.</p>
+                    <button class="btn map-btn" onclick="openMap(${h.lat}, ${h.lng}); return false;">Open Map</button>
+                `;
+                hotelsList.appendChild(card);
+            });
+        }
+
+        function startBookingFrom(destId) {
+            showSection('booking');
+            var sel = document.getElementById('bookingDestination');
+            sel.value = destId;
+            loadHotels();
+        }
+
+        function confirmBooking() {
+            var destId = Number(document.getElementById('bookingDestination').value);
+            var hotelIndex = document.getElementById('bookingHotel').value;
+            var checkIn = document.getElementById('checkIn').value;
+            var checkOut = document.getElementById('checkOut').value;
+            var guests = Number(document.getElementById('guests').value);
+
+            if (!destId) {
+                alert('Please select a destination.');
+                return;
+            }
+            if (hotelIndex === '' || hotelIndex === null) {
+                alert('Please select a hotel.');
+                return;
+            }
+            if (!checkIn || !checkOut) {
+                alert('Please select check-in and check-out dates.');
+                return;
+            }
+            if (new Date(checkOut) <= new Date(checkIn)) {
+                alert('Check-out must be after check-in.');
+                return;
+            }
+            if (guests < 1) {
+                alert('Please enter valid number of guests.');
+                return;
+            }
+
+            var dest = destinations.find(function(x) { return x.id === destId; });
+            var hotel = dest.hotels[Number(hotelIndex)];
+
+            var nights = Math.round((new Date(checkOut) - new Date(checkIn)) / (1000*60*60*24));
+            var totalPrice = (hotel.price * nights) * guests;
+
+            var bookings = getBookings();
+            var booking = {
+                id: 'BKG' + Date.now(),
+                destinationId: destId,
+                destinationName: dest.name,
+                hotelName: hotel.name,
+                checkIn: checkIn,
+                checkOut: checkOut,
+                guests: guests,
+                nights: nights,
+                totalPrice: totalPrice,
+                createdAt: new Date().toISOString(),
+                status: 'Confirmed'
+            };
+            bookings.unshift(booking);
+            saveBookings(bookings);
+            renderBookings();
+            alert('Booking confirmed! Check My Bookings.');
+            // Reset small parts
+            document.getElementById('bookingHotel').value = '';
+            document.getElementById('checkIn').value = '';
+            document.getElementById('checkOut').value = '';
+            document.getElementById('guests').value = 1;
+        }
+
+        function renderBookings() {
+            var list = document.getElementById('bookingsList');
+            var bookings = getBookings();
+            list.innerHTML = '';
+            if (!bookings || bookings.length === 0) {
+                list.innerHTML = '<div class="empty-state"><div class="empty-icon">🧳</div><p>You have no bookings yet. Book something amazing!</p></div>';
+                return;
+            }
+            bookings.forEach(function(b) {
+                var item = document.createElement('div');
+                item.className = 'booking-item';
+                item.innerHTML = `
+                    <div class="booking-details">
+                        <h3>${b.destinationName} — ${b.hotelName}</h3>
+                        <p>Guests: ${b.guests} • Nights: ${b.nights}</p>
+                        <p class="booking-date">Check-in: ${b.checkIn} • Check-out: ${b.checkOut}</p>
+                        <p style="color:#cbd5e1">Booked on: ${new Date(b.createdAt).toLocaleString()}</p>
+                    </div>
+                    <div style="text-align:right">
+                        <div class="booking-status">${b.status}</div>
+                        <div style="margin-top:0.8rem; font-weight:bold; font-size:1.1rem">${formatPrice(b.totalPrice)}</div>
+                        <button class="btn" style="margin-top:0.8rem;" onclick="cancelBooking('${b.id}'); return false;">Cancel</button>
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function cancelBooking(id) {
+            if (!confirm('Are you sure you want to cancel this booking?')) return;
+            var bookings = getBookings().filter(function(b) { return b.id !== id; });
+            saveBookings(bookings);
+            renderBookings();
+        }
+
+        // Navigation
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(function(s) {
+                s.classList.remove('active');
+            });
+            var el = document.getElementById(sectionId);
+            if (el) el.classList.add('active');
+
+            // update nav active state
+            document.querySelectorAll('.nav-link').forEach(function(a) {
+                a.classList.remove('active');
+            });
+            var navItem = document.querySelector('.nav-link[data-section="' + sectionId + '"]');
+            if (navItem) navItem.classList.add('active');
+
+            // hide mobile nav if open
+            document.getElementById('navLinks').classList.remove('active');
+
+            // If navigating to booking or mybookings, render bookings/hotels accordingly
+            if (sectionId === 'booking') {
+                loadBookingDestinations();
+            } else if (sectionId === 'mybookings') {
+                renderBookings();
+            } else if (sectionId === 'destinations') {
+                renderDestinations(destinations);
+            }
+            // scroll to top of section for better UX
+            setTimeout(function () {
+                window.scrollTo({ top: document.getElementById(sectionId).offsetTop - 80, behavior: 'smooth' });
+            }, 100);
+        }
+
+        // Mobile toggle
+        document.getElementById('mobileToggle').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+
+        // Nav links click handling
+        document.querySelectorAll('.nav-link').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                var section = this.getAttribute('data-section');
+                showSection(section);
+            });
+        });
+
+        // Init
+        function init() {
+            renderDestinations(destinations);
+            loadBookingDestinations();
+            renderBookings();
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                var nav = document.getElementById('navLinks');
+                var toggle = document.getElementById('mobileToggle');
+                if (!nav.contains(e.target) && !toggle.contains(e.target)) {
+                    nav.classList.remove('active');
+                }
+            });
+        }
+
+        // Start
+        init();
+    </script>
+</body>
+</html>
