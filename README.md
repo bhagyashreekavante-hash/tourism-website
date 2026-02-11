@@ -21,3 +21,15 @@ HTML5
 CSS
 
 JavaScript
+
+
+## 📸 Project Preview
+
+###  Dashboard
+![Dashboard](dashboard.png)
+
+###  Booking Page
+![Booking](bookings.png)
+
+###  Destination Page
+![Destination](destination.png)
